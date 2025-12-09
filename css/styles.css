@@ -1,0 +1,17 @@
+/* Shared styles for the pre-order site */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Poppins', sans-serif; }
+
+/* Small utility for stat cards used in admin */
+.stat-card { transition: transform 0.3s, box-shadow 0.3s; }
+.stat-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+
+/* Result messages */
+.result-hidden { display: none; }
+
+/* Small responsive tweaks */
+@media (max-width: 640px) {
+  .stat-card { padding: 1rem; }
+}

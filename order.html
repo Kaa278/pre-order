@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Order - Merchandise UDB</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- NAVBAR -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <h1 class="text-2xl font-bold text-indigo-600">Merchandise UDB</h1>
+        <button id="backBtn" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">← Kembali</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-white rounded-xl shadow-md p-8">
+      <h1 class="text-3xl font-bold text-indigo-600 mb-8">Form Order</h1>
+
+      <!-- Product Selection -->
+      <div class="mb-8 p-6 bg-blue-50 border border-blue-200 rounded-lg">
+        <label class="block text-sm font-semibold text-gray-700 mb-3">Pilih Produk</label>
+        <select id="productSelect" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+          <option value="kaos">Kaos UDB - Rp 65.000</option>
+          <option value="workshirt">Workshirt UDB - Rp 85.000</option>
+          <option value="hoodie">Hoodie UDB - Rp 125.000</option>
+          <option value="polo">Polo Shirt UDB - Rp 75.000</option>
+          <option value="jaket">Jaket UDB - Rp 150.000</option>
+          <option value="topi">Topi Cap UDB - Rp 45.000</option>
+        </select>
+      </div>
+
+      <form id="orderForm" class="space-y-6">
+        <!-- Nama -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap</label>
+          <input 
+            id="nama" 
+            type="text"
+            required 
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+            placeholder="Masukkan nama lengkap Anda"
+          />
+        </div>
+
+        <!-- NIM -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">NIM</label>
+          <input 
+            id="nim" 
+            type="text"
+            required 
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+            placeholder="Nomor Induk Mahasiswa"
+          />
+        </div>
+
+        <!-- Kelas -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Kelas</label>
+          <input 
+            id="kelas" 
+            type="text"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+            placeholder="Contoh: TI-1A, SI-2B"
+          />
+        </div>
+
+        <!-- Phone -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">No. Telepon</label>
+          <input 
+            id="phone" 
+            type="tel"
+            required 
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+            placeholder="+62 812 3456 7890"
+          />
+        </div>
+
+        <!-- Size -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Ukuran</label>
+          <select id="size" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+            <option value="">Pilih Ukuran</option>
+            <option value="S">S (Small)</option>
+            <option value="M">M (Medium)</option>
+            <option value="L">L (Large)</option>
+            <option value="XL">XL (Extra Large)</option>
+            <option value="XXL">XXL (2XL)</option>
+            <option value="One Size">One Size Fits All</option>
+          </select>
+        </div>
+
+        <!-- Color -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Warna</label>
+          <select id="color" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+            <option value="">Pilih Warna</option>
+            <option value="Hitam">Hitam</option>
+            <option value="Putih">Putih</option>
+            <option value="Biru">Biru</option>
+            <option value="Merah">Merah</option>
+            <option value="Kuning">Kuning</option>
+            <option value="Hijau">Hijau</option>
+          </select>
+        </div>
+
+        <!-- Quantity -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Jumlah</label>
+          <input 
+            id="qty" 
+            type="number" 
+            min="1" 
+            max="100"
+            value="1" 
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+          />
+        </div>
+
+        <!-- Notes -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Catatan (Opsional)</label>
+          <textarea 
+            id="notes" 
+            rows="3"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+            placeholder="Catatan atau permintaan khusus"
+          ></textarea>
+        </div>
+
+        <!-- Down Payment Notice & Upload -->
+        <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <p class="text-sm text-yellow-800 font-medium">Perhatian: Untuk memproses pesanan, diwajibkan membayar DP 50%.</p>
+          <p class="text-sm text-gray-600 mt-1">Silakan unggah bukti pembayaran DP melalui form di bawah. File harus diunggah sebelum mengirim order. (Admin akan memeriksa bukti secara manual.)</p>
+
+          <div class="mt-4">
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Bukti Pembayaran (DP 50%)</label>
+            <input id="paymentProof" type="file" accept="image/*" class="w-full" />
+            <p id="dpInfo" class="text-sm text-gray-600 mt-2">Jumlah DP: <strong id="dpAmount">-</strong></p>
+            <div id="uploadProgress" class="w-full bg-gray-200 rounded mt-2 hidden">
+              <div id="uploadBar" class="bg-indigo-600 text-xs text-white text-center rounded h-2" style="width:0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="flex gap-3 pt-4">
+          <button 
+            type="submit" 
+            class="flex-1 px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition"
+          >
+            Kirim Order
+          </button>
+          <button 
+            type="button" 
+            id="cancelBtn" 
+            class="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300 transition"
+          >
+            Batal
+          </button>
+        </div>
+      </form>
+
+      <div id="result" class="mt-6 hidden"></div>
+    </div>
+  </div>
+  ...
+
+  <!-- Firebase compat SDKs (WAJIB ADA BEFORE firebase-init.js) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <!-- init dulu -->
+  <script src="js/firebase-init.js"></script>
+
+  <!-- baru order logic -->
+  <script src="js/order.js"></script>
+</body>
+</html>

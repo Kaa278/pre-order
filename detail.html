@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Produk - Merchandise UDB</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  
+  <style>
+    body { font-family: "Poppins", sans-serif; }
+    .swiper-slide img { object-fit: cover; height: 350px; width: 100%; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- NAVBAR -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <h1 class="text-2xl font-bold text-indigo-600">Merchandise UDB</h1>
+        <button id="backBtn" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">← Kembali</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div id="productDetail" class="bg-white rounded-xl shadow-md overflow-hidden">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
+        <!-- Image Slider -->
+        <div id="imageContainer" class="rounded-lg overflow-hidden">
+          <!-- Will be populated by JS -->
+        </div>
+
+        <!-- Product Info -->
+        <div id="infoContainer" class="flex flex-col justify-center">
+          <!-- Will be populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Button -->
+    <div class="mt-8 text-center">
+      <button id="orderBtn" class="px-8 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">Pesan Sekarang</button>
+    </div>
+  </div>
+
+  <script>
+    // Ambil product dari query string
+    function getQueryParam(name){
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    const productKey = getQueryParam('product') || localStorage.getItem('selectedProduct') || 'kaos';
+
+    const products = {
+      kaos: {
+        title: 'Kaos UDB',
+        price: 'Rp 65.000',
+        desc: 'Kaos cotton combed 30s premium, nyaman dan cocok untuk kegiatan kampus atau event. Tersedia dalam berbagai warna pilihan.',
+        images: [
+          'https://images.unsplash.com/photo-1585386959984-a41552231693?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1200&q=80'
+        ],
+        details: ['Material: Cotton Combed 30s', 'Ukuran: S, M, L, XL, XXL', 'Tersedia 5+ warna']
+      },
+      workshirt: {
+        title: 'Workshirt UDB',
+        price: 'Rp 85.000',
+        desc: 'Workshirt berbahan American Drill, kuat dan rapi untuk kegiatan organisasi atau pekerjaan lapangan. Material premium yang tahan lama.',
+        images: [
+          'https://images.unsplash.com/photo-1520975918573-0b0e3b3b5e6b?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1534150454707-3f8f2781f9f5?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1598032890910-5fa6c1b8a5b5?auto=format&fit=crop&w=1200&q=80'
+        ],
+        details: ['Material: American Drill', 'Ukuran: M, L, XL, XXL', 'Tahan lama & nyaman']
+      },
+      hoodie: {
+        title: 'Hoodie UDB',
+        price: 'Rp 125.000',
+        desc: 'Hoodie fleece tebal dan lembut, tampil stylish dan nyaman di segala cuaca. Perfect untuk casual hangout atau kegiatan indoor.',
+        images: [
+          'https://images.unsplash.com/photo-1541534401786-6c16a9f1a9f2?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1602810317023-5c3d9c0f6b6b?auto=format&fit=crop&w=1200&q=80'
+        ],
+        details: ['Material: Fleece Premium', 'Ukuran: S, M, L, XL, XXL', 'Tebal & hangat']
+      },
+      polo: {
+        title: 'Polo Shirt UDB',
+        price: 'Rp 75.000',
+        desc: 'Polo shirt berkualitas tinggi dengan jahitan rapi, cocok untuk presentasi atau acara formal kasual. Elegan namun nyaman.',
+        images: [
+          'https://images.unsplash.com/photo-1517836357463-d25ddfcbf042?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1591047990852-1abf4c6e72e9?auto=format&fit=crop&w=1200&q=80'
+        ],
+        details: ['Material: Cotton Pique', 'Ukuran: S, M, L, XL, XXL', 'Desain Elegan']
+      },
+      jaket: {
+        title: 'Jaket UDB',
+        price: 'Rp 150.000',
+        desc: 'Jaket bomber stylish dengan desain modern dan bahan berkualitas. Cocok untuk outdoor atau casual style yang lebih sophisticated.',
+        images: [
+          'https://images.unsplash.com/photo-1551028719-00167b16ebc5?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1544623622-7cac9e30b633?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1551222506-87ebf25bc3fb?auto=format&fit=crop&w=1200&q=80'
+        ],
+        details: ['Material: Polyester & Cotton', 'Ukuran: M, L, XL, XXL', 'Desain Bomber Modern']
+      },
+      topi: {
+        title: 'Topi Cap UDB',
+        price: 'Rp 45.000',
+        desc: 'Topi cap dengan bordir logo UDB yang rapi, cocok untuk melengkapi tampilan casual Anda. Material premium dan breathable.',
+        images: [
+          'https://images.unsplash.com/photo-1521572419439-b920af99d1b1?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1598033129519-c90900bc9981?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1607639957743-bc282f2ce91d?auto=format&fit=crop&w=1200&q=80'
+        ],
+        details: ['Material: Cotton & Polyester', 'One Size Fits All', 'Bordir Logo UDB']
+      }
+    };
+
+    const info = products[productKey] || products['kaos'];
+
+    // Populate Image Slider
+    const imageContainer = document.getElementById('imageContainer');
+    const swiperHTML = `
+      <div class="swiper swiper-detail rounded-lg">
+        <div class="swiper-wrapper">
+          ${info.images.map((img, idx) => `
+            <div class="swiper-slide">
+              <img src="${img}" alt="${info.title}" />
+            </div>
+          `).join('')}
+        </div>
+        <div class="swiper-pagination swiper-pagination-detail"></div>
+      </div>
+    `;
+    imageContainer.innerHTML = swiperHTML;
+
+    // Populate Product Info
+    const infoContainer = document.getElementById('infoContainer');
+    const infoHTML = `
+      <div>
+        <h1 class="text-3xl font-bold text-indigo-600 mb-2">${info.title}</h1>
+        <p class="text-2xl font-bold text-gray-800 mb-4">${info.price}</p>
+        <p class="text-gray-600 text-base leading-relaxed mb-6">${info.desc}</p>
+        
+        <div class="mb-6">
+          <h3 class="font-bold text-gray-800 mb-3">Spesifikasi:</h3>
+          <ul class="space-y-2">
+            ${info.details.map(detail => `<li class="text-gray-600 flex items-center"><span class="text-indigo-600 mr-2">✓</span> ${detail}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+          <p class="text-sm text-gray-600"><span class="font-semibold text-indigo-600">Info:</span> Stok terbatas. Pesan sekarang untuk memastikan ketersediaan.</p>
+        </div>
+      </div>
+    `;
+    infoContainer.innerHTML = infoHTML;
+
+    // Initialize Swiper
+    new Swiper(".swiper-detail", {
+      pagination: { el: ".swiper-pagination-detail", clickable: true },
+      loop: true,
+      autoplay: { delay: 4000 }
+    });
+
+    // Event Listeners
+    document.getElementById('backBtn').addEventListener('click', ()=> window.history.back());
+    document.getElementById('orderBtn').addEventListener('click', ()=>{
+      localStorage.setItem('selectedProduct', productKey);
+      window.location.href = 'order.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login - Merchandise UDB</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="bg-gradient-to-r from-indigo-600 to-blue-500 min-h-screen flex items-center justify-center px-4">
+
+  <div class="max-w-md w-full bg-white rounded-lg shadow-xl p-8">
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-indigo-600 mb-2">Merchandise UDB</h1>
+      <p class="text-gray-600 text-sm">Admin Login</p>
+    </div>
+
+    <form id="loginForm" class="space-y-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+        <input 
+          id="email" 
+          type="email" 
+          required 
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+          placeholder="admin@yourdomain.com"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+        <input 
+          id="password" 
+          type="password" 
+          required 
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+          placeholder="Masukkan password"
+        />
+      </div>
+
+      <button 
+        type="submit"
+        class="w-full py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition"
+      >
+        Masuk
+      </button>
+    </form>
+
+    <div class="mt-6 pt-6 border-t border-gray-200">
+      <p class="text-center text-gray-600 text-sm">Kembali ke</p>
+      <a href="index.html" class="block text-center text-indigo-600 font-medium hover:text-indigo-700 mt-2">Halaman Utama</a>
+    </div>
+
+    <div id="message" class="mt-4 hidden p-3 rounded-lg text-sm"></div>
+  </div>
+  <!-- Firebase compat SDKs (WAJIB) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <!-- init dulu -->
+  <script src="js/firebase-init.js"></script>
+
+  <!-- baru login handler -->
+  <script src="js/login.js"></script>
+</body>
+</html>

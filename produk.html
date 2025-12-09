@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - Merchandise UDB</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: "Poppins", sans-serif; }
+    .product-img { height: 280px; object-fit: cover; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+  </style>
+</head>
+
+<body class="bg-gray-50">
+  <!-- NAVBAR -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <h1 class="text-2xl font-bold text-indigo-600">Merchandise UDB</h1>
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html" class="text-gray-700 font-medium hover:text-indigo-600">Home</a>
+          <a href="index.html#products" class="text-gray-700 font-medium hover:text-indigo-600">Product</a>
+          <a href="produk.html" class="text-gray-700 font-medium hover:text-indigo-600 font-bold">Shop</a>
+          <a href="index.html#about" class="text-gray-700 font-medium hover:text-indigo-600">About</a>
+          <a href="index.html#contact" class="text-gray-700 font-medium hover:text-indigo-600">Contact</a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button id="menuBtn" class="md:hidden text-gray-700 focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="hidden md:hidden pb-4">
+        <a href="index.html" class="block py-2 text-gray-700 hover:text-indigo-600">Home</a>
+        <a href="index.html#products" class="block py-2 text-gray-700 hover:text-indigo-600">Product</a>
+        <a href="produk.html" class="block py-2 text-gray-700 hover:text-indigo-600 font-bold">Shop</a>
+        <a href="index.html#about" class="block py-2 text-gray-700 hover:text-indigo-600">About</a>
+        <a href="index.html#contact" class="block py-2 text-gray-700 hover:text-indigo-600">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="bg-white text-gray-800 py-12 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto text-center px-4">
+      <h1 class="text-4xl font-bold mb-4 text-indigo-600">Shop All Products</h1>
+      <p class="text-lg text-gray-600">Temukan merchandise favorit Anda dengan koleksi lengkap kami</p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- FILTER & SORT (Optional) -->
+    <div class="mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-800">All Products</h2>
+        <p class="text-gray-600 text-sm">Menampilkan 6 produk</p>
+      </div>
+      <div>
+        <select class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700">
+          <option>Sort by: Newest</option>
+          <option>Popular</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- PRODUCTS GRID -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- PRODUCT 1 - KAOS -->
+      <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden">
+        <div class="product-img flex items-center justify-center text-white text-center p-6">
+          <div>
+            <div class="text-4xl mb-2">👕</div>
+            <h3 class="font-bold text-lg">Kaos UDB</h3>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-lg font-bold text-gray-800 mb-2">Kaos UDB</h3>
+          <p class="text-gray-600 text-sm mb-4">
+            Kaos cotton combed 30s premium, nyaman dan cocok untuk kegiatan kampus atau event.
+          </p>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-2xl font-bold text-indigo-600">Rp 65.000</span>
+            <span class="text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full">In Stock</span>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="order('kaos')" class="flex-1 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">Order</button>
+            <button onclick="showDetail('kaos')" class="flex-1 py-2 border border-indigo-600 text-indigo-600 rounded-lg font-medium hover:bg-indigo-50 transition">Detail</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCT 2 - WORKSHIRT -->
+      <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden">
+        <div class="product-img flex items-center justify-center text-white text-center p-6">
+          <div>
+            <div class="text-4xl mb-2">👔</div>
+            <h3 class="font-bold text-lg">Workshirt UDB</h3>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-lg font-bold text-gray-800 mb-2">Workshirt UDB</h3>
+          <p class="text-gray-600 text-sm mb-4">
+            Workshirt berbahan American Drill, kuat dan rapi untuk kegiatan organisasi.
+          </p>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-2xl font-bold text-indigo-600">Rp 85.000</span>
+            <span class="text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full">In Stock</span>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="order('workshirt')" class="flex-1 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">Order</button>
+            <button onclick="showDetail('workshirt')" class="flex-1 py-2 border border-indigo-600 text-indigo-600 rounded-lg font-medium hover:bg-indigo-50 transition">Detail</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCT 3 - HOODIE -->
+      <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden">
+        <div class="product-img flex items-center justify-center text-white text-center p-6">
+          <div>
+            <div class="text-4xl mb-2">🧥</div>
+            <h3 class="font-bold text-lg">Hoodie UDB</h3>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-lg font-bold text-gray-800 mb-2">Hoodie UDB</h3>
+          <p class="text-gray-600 text-sm mb-4">
+            Hoodie fleece tebal dan lembut, tampil stylish dan nyaman di segala cuaca.
+          </p>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-2xl font-bold text-indigo-600">Rp 125.000</span>
+            <span class="text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full">In Stock</span>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="order('hoodie')" class="flex-1 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">Order</button>
+            <button onclick="showDetail('hoodie')" class="flex-1 py-2 border border-indigo-600 text-indigo-600 rounded-lg font-medium hover:bg-indigo-50 transition">Detail</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCT 4 - POLO -->
+      <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden">
+        <div class="product-img flex items-center justify-center text-white text-center p-6">
+          <div>
+            <div class="text-4xl mb-2">👕</div>
+            <h3 class="font-bold text-lg">Polo Shirt UDB</h3>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-lg font-bold text-gray-800 mb-2">Polo Shirt UDB</h3>
+          <p class="text-gray-600 text-sm mb-4">
+            Polo shirt bahan pique, cocok untuk acara formal kasual dan seragam.
+          </p>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-2xl font-bold text-indigo-600">Rp 75.000</span>
+            <span class="text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full">In Stock</span>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="order('polo')" class="flex-1 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">Order</button>
+            <button onclick="showDetail('polo')" class="flex-1 py-2 border border-indigo-600 text-indigo-600 rounded-lg font-medium hover:bg-indigo-50 transition">Detail</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCT 5 - JAKET -->
+      <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden">
+        <div class="product-img flex items-center justify-center text-white text-center p-6">
+          <div>
+            <div class="text-4xl mb-2">🧥</div>
+            <h3 class="font-bold text-lg">Jaket UDB</h3>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-lg font-bold text-gray-800 mb-2">Jaket UDB</h3>
+          <p class="text-gray-600 text-sm mb-4">
+            Jaket parasit/softshell berkualitas, cocok untuk kegiatan outdoor dan perlindungan cuaca.
+          </p>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-2xl font-bold text-indigo-600">Rp 150.000</span>
+            <span class="text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full">In Stock</span>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="order('jaket')" class="flex-1 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">Order</button>
+            <button onclick="showDetail('jaket')" class="flex-1 py-2 border border-indigo-600 text-indigo-600 rounded-lg font-medium hover:bg-indigo-50 transition">Detail</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCT 6 - TOPI -->
+      <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition overflow-hidden">
+        <div class="product-img flex items-center justify-center text-white text-center p-6">
+          <div>
+            <div class="text-4xl mb-2">🧢</div>
+            <h3 class="font-bold text-lg">Topi Cap UDB</h3>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-lg font-bold text-gray-800 mb-2">Topi Cap UDB</h3>
+          <p class="text-gray-600 text-sm mb-4">
+            Topi berkualitas dengan bordir logo UDB, nyaman dipakai sehari-hari.
+          </p>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-2xl font-bold text-indigo-600">Rp 45.000</span>
+            <span class="text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full">In Stock</span>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="order('topi')" class="flex-1 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">Order</button>
+            <button onclick="showDetail('topi')" class="flex-1 py-2 border border-indigo-600 text-indigo-600 rounded-lg font-medium hover:bg-indigo-50 transition">Detail</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-800 text-white py-8 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p>&copy; 2025 Merchandise UDB. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Hamburger Menu Toggle
+    document.getElementById('menuBtn').addEventListener('click', function(){
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    });
+
+    // Fungsi navigasi
+    function showDetail(product) {
+      window.location.href = "detail.html?product=" + encodeURIComponent(product);
+    }
+    function order(product) {
+      localStorage.setItem("selectedProduct", product);
+      window.location.href = "order.html";
+    }
+  </script>
+</body>
+</html>

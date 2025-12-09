@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Merchandise UDB</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="bg-gray-50">
+  <!-- NAVBAR -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div>
+          <h1 class="text-2xl font-bold text-indigo-600">Admin Dashboard</h1>
+          <p class="text-xs text-gray-500">Merchandise UDB</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <span id="adminName" class="text-gray-700 font-medium sm:inline"></span>
+          <button id="logoutBtn" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- STATS ROW -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Total Orders -->
+      <div class="stat-card bg-white p-6 rounded-lg shadow-md">
+        <div class="flex justify-between items-center">
+          <div>
+            <p class="text-gray-600 text-sm font-medium">Total Orders</p>
+            <p id="totalOrders" class="text-3xl font-bold text-indigo-600 mt-2">0</p>
+          </div>
+          <div class="text-4xl opacity-20">📦</div>
+        </div>
+      </div>
+
+      <!-- Today Orders -->
+      <div class="stat-card bg-white p-6 rounded-lg shadow-md">
+        <div class="flex justify-between items-center">
+          <div>
+            <p class="text-gray-600 text-sm font-medium">Order Hari Ini</p>
+            <p id="todayOrders" class="text-3xl font-bold text-green-600 mt-2">0</p>
+          </div>
+          <div class="text-4xl opacity-20">📅</div>
+        </div>
+      </div>
+
+      <!-- Total Revenue -->
+      <div class="stat-card bg-white p-6 rounded-lg shadow-md">
+        <div class="flex justify-between items-center">
+          <div>
+            <p class="text-gray-600 text-sm font-medium">Total Revenue</p>
+            <p id="totalRevenue" class="text-2xl font-bold text-blue-600 mt-2">Rp 0</p>
+          </div>
+          <div class="text-4xl opacity-20">💰</div>
+        </div>
+      </div>
+
+      <!-- Total Customers -->
+      <div class="stat-card bg-white p-6 rounded-lg shadow-md">
+        <div class="flex justify-between items-center">
+          <div>
+            <p class="text-gray-600 text-sm font-medium">Unique Customers</p>
+            <p id="totalCustomers" class="text-3xl font-bold text-purple-600 mt-2">0</p>
+          </div>
+          <div class="text-4xl opacity-20">👥</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS BREAKDOWN -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      <div class="lg:col-span-2 bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-bold text-gray-800 mb-6">Top Products</h2>
+        <div id="productStats" class="space-y-4">
+          <!-- Will be populated by JS -->
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-bold text-gray-800 mb-6">Produk Terpopuler</h2>
+        <div id="topProduct" class="text-center p-4 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-lg">
+          <!-- Will be populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- RECENT ORDERS TABLE -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <div class="flex justify-between items-center mb-6 flex-wrap gap-3">
+        <h2 class="text-xl font-bold text-gray-800">Recent Orders</h2>
+        <div class="flex gap-2">
+          <button id="downloadBtn" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-sm">📥 Download Rekap</button>
+          <button id="refreshBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition text-sm">🔄 Refresh</button>
+        </div>
+      </div>
+      
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b-2 border-gray-200">
+              <th class="text-left py-3 px-4 font-semibold text-gray-700">#</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-700">Nama</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-700">Produk</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-700">Jumlah</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-700">Ukuran</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-700">Kontak</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-700">Waktu</th>
+              <th class="text-left py-3 px-4 font-semibold text-gray-700">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTable" class="divide-y divide-gray-200">
+            <!-- Will be populated by JS -->
+          </tbody>
+        </table>
+        <div id="emptyState" class="text-center py-8 text-gray-500">
+          <p>Belum ada order masuk.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-800 text-white py-6 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm">&copy; 2025 Admin Dashboard Merchandise UDB. Last updated: <span id="lastUpdate">-</span></p>
+    </div>
+  </footer>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script src="js/firebase-init.js"></script>
+  <script src="js/admin-dashboard.js"></script>
+
+</body>
+</html>
