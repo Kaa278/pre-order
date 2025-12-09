@@ -1,4 +1,4 @@
-// order.js - FINAL (Firestore dulu, bukti optional & tidak bikin loading lama)
+// order.js - FINAL FULL (Firestore dulu, bukti optional via Cloudinary unsigned upload)
 (async function () {
   // tunggu firebase init
   if (window.firebaseReady) {
@@ -6,12 +6,24 @@
   }
 
   const db = window.db;
-  const storage = window.storage || (window.firebase && firebase.storage && firebase.storage());
-
   if (!db) {
     alert("Firestore belum siap. Cek firebase-init.js & SDK include.");
     return;
   }
+
+  // =========================
+  // === CLOUDINARY CONFIG ===
+ // =========================
+// === CLOUDINARY CONFIG ===
+const CLOUD_NAME = "dfaraowbe";
+const UPLOAD_PRESET = "eavvapvy"; // unsigned preset kamu
+const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+// =========================
+
+  // debug config (biar tau yang kekirim bener)
+  console.log("CLOUD_NAME:", CLOUD_NAME);
+  console.log("UPLOAD_PRESET:", JSON.stringify(UPLOAD_PRESET));
+  console.log("CLOUDINARY_URL:", CLOUDINARY_URL);
 
   // Product mapping
   const productNames = {
@@ -91,23 +103,6 @@
   const form = document.getElementById("orderForm");
   if (!form) return;
 
-  // helper upload progress
-  function uploadWithProgress(ref, file, progressBar) {
-    return new Promise((resolve, reject) => {
-      const task = ref.put(file);
-      task.on(
-        "state_changed",
-        snap => {
-          const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-          progressBar.style.width = pct + "%";
-          progressBar.textContent = pct + "%";
-        },
-        reject,
-        () => resolve(task)
-      );
-    });
-  }
-
   // timeout wrapper biar gak ngegantung
   function withTimeout(promise, ms = 15000) {
     return Promise.race([
@@ -116,6 +111,43 @@
         setTimeout(() => reject(new Error("upload-timeout")), ms)
       )
     ]);
+  }
+
+  // ==== Upload ke Cloudinary unsigned (pakai fetch) ====
+  async function uploadToCloudinary(file, progressBar) {
+    if (!CLOUD_NAME || CLOUD_NAME === "ISI_CLOUD_NAME_KAMU") {
+      throw new Error("cloudinary-not-configured");
+    }
+
+    const fd = new FormData();
+    fd.append("file", file);
+    fd.append("upload_preset", UPLOAD_PRESET);
+    fd.append("folder", "orders");
+
+    // progress manual: set 10% dulu biar keliatan jalan
+    if (progressBar) {
+      progressBar.style.width = "10%";
+      progressBar.textContent = "10%";
+    }
+
+    const res = await fetch(CLOUDINARY_URL, {
+      method: "POST",
+      body: fd
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      console.error("Cloudinary response error:", data);
+      throw new Error(data?.error?.message || "cloudinary-upload-failed");
+    }
+
+    if (progressBar) {
+      progressBar.style.width = "100%";
+      progressBar.textContent = "100%";
+    }
+
+    return data.secure_url;
   }
 
   form.addEventListener("submit", async function (e) {
@@ -174,7 +206,7 @@
     resultEl.innerHTML =
       "<div class='text-center'>⏳ Mengirim order, mohon tunggu...</div>";
 
-    // ===== 1) SIMPAN ORDER KE FIRESTORE DULU (tanpa nunggu upload) =====
+    // ===== 1) SIMPAN ORDER KE FIRESTORE DULU =====
     let docRef = null;
     try {
       const firestoreOrder = {
@@ -196,6 +228,7 @@
       };
 
       docRef = await db.collection("orders").add(firestoreOrder);
+      console.log("Order saved Firestore id:", docRef.id);
     } catch (fireErr) {
       console.error("FIRESTORE SAVE FAILED:", fireErr);
       submitBtn.disabled = false;
@@ -208,37 +241,28 @@
       return;
     }
 
-    // ===== 2) COBA UPLOAD BUKTI (kalau ada). kalau gagal, skip =====
+    // ===== 2) COBA UPLOAD BUKTI (kalau ada) =====
     let buktiUrl = "-";
     let uploadStatus = "no-proof";
 
-    if (paymentProofFile && storage) {
+    if (paymentProofFile) {
       try {
         submitBtn.textContent = "Mengunggah bukti...";
 
-        const timestamp = Date.now();
-        const safeName = paymentProofFile.name.replace(/[^\w.\-]/g, "_");
-        const storagePath = `orders/${timestamp}_${safeName}`;
-
-        const ref = storage.ref(storagePath);
-        const task = await withTimeout(
-          uploadWithProgress(ref, paymentProofFile, progressBar),
+        buktiUrl = await withTimeout(
+          uploadToCloudinary(paymentProofFile, progressBar),
           15000
         );
 
-        buktiUrl = await task.snapshot.ref.getDownloadURL();
         uploadStatus = "uploaded";
 
-        // update dokumen Firestore yang barusan dibuat
         await docRef.update({
           buktiUrl,
           uploadStatus
         });
       } catch (uploadErr) {
-        console.warn("UPLOAD FAILED, order tetap masuk:", uploadErr);
+        console.warn("CLOUDINARY UPLOAD FAILED, order tetap masuk:", uploadErr);
         uploadStatus = "failed";
-
-        // update status aja biar admin tau
         try {
           await docRef.update({ uploadStatus });
         } catch (e) {}
